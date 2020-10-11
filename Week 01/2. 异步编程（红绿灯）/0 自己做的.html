@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      background-color: #999;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+    <div class="green" style="background-color: green;"></div>
+    <div class="yellow"></div>
+    <div class="red"></div>
+
+    <script>
+      var time = 0;
+      var color = 'green';
+      setInterval(function() {
+        time++;
+        if(color == 'green' && time == 9) {
+          color = 'yellow';
+          resetColor();
+          document.getElementsByClassName('yellow')[0].style = 'background-color: yellow;';
+        }
+        if(color == 'yellow' && time == 1) {
+          color = 'red';
+          resetColor();
+          document.getElementsByClassName('red')[0].style = 'background-color: red;';
+        }
+        if(color == 'red' && time == 4) {
+          color = 'green';
+          resetColor();
+          document.getElementsByClassName('green')[0].style = 'background-color: green;';
+        }
+      }, 1000);
+
+      function resetColor() {
+        time = 0;
+        var list = document.getElementsByTagName('div');
+        for(let i = 0; i < 3; i++) {
+          list[i].style = 'background-color: grey;';
+        }
+      }
+    </script>
+</body>
+</html>
