@@ -5,7 +5,7 @@
 4. 多个 for 嵌套，可用 outer: 区分，break outer;
 
 # 异步编程（红绿灯）
-1. classList.remove / add操作class
+1. classList.remove / add 操作 class
 2. 多层回调嵌套会形成回调地狱
 3. Promise 解决回调地狱的问题
 4. async await 相当于封装了Promise，其原理还是 Promise

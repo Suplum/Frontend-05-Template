@@ -26,17 +26,17 @@
       var color = 'green';
       setInterval(function() {
         time++;
-        if(color == 'green' && time == 9) {
+        if(color == 'green' && time == 10) {
           color = 'yellow';
           resetColor();
           document.getElementsByClassName('yellow')[0].style = 'background-color: yellow;';
         }
-        if(color == 'yellow' && time == 1) {
+        if(color == 'yellow' && time == 2) {
           color = 'red';
           resetColor();
           document.getElementsByClassName('red')[0].style = 'background-color: red;';
         }
-        if(color == 'red' && time == 4) {
+        if(color == 'red' && time == 5) {
           color = 'green';
           resetColor();
           document.getElementsByClassName('green')[0].style = 'background-color: green;';
