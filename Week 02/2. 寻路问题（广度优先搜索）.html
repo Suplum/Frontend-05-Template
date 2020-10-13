@@ -64,8 +64,37 @@
     document.addEventListener('contextmenu', e => e.preventDefault());
 
     function path(map, start, end) {
+      var queue = [start];
 
+      function insert(x, y) { // 入队的逻辑
+        if(x < 0 || x >= 100 || y < 0 || y >= 100) {
+          return;
+        }
+        if(map[y * 100 + x]) {
+          return;
+        }
+        map[y * 100 + x] = 2;
+        queue.push(x, y);
+      }
+
+      while(queue.length) {
+        let a = queue.shift();
+        let [x, y] = a;
+        console.log(x, y);
+        if(x === end[0] && y === end[1]) { // 找到了
+          return true;
+        }
+        insert(x - 1, y);
+        insert(x, y - 1);
+        insert(x + 1, y);
+        insert(x, y + 1);
+      }
+      return false;
     }
+
+    
+
+
 
   </script>
   
