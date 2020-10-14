@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>寻路（广度优先搜索-通过异步编程可视化寻路算法）</title>
+  <style>
+    #container {
+      font-size: 0;
+      width: 701px;
+    }
+    .cell {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: gray;
+      border-bottom: 1px solid white;
+      border-right: 1px solid white;
+      vertical-align: middle;
+    }
+    .ligntgreen {
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <button onclick="localStorage['map'] = JSON.stringify(map)">save</button>
+
+  <script>
+    let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0); // 设计数据结构保存地图
+
+    let container = document.getElementById('container');
+
+    for(let y = 0; y < 100; y++) {
+      for(let x = 0; x < 100; x++) {
+        let cell = document.createElement('div');
+        cell.classList.add('cell');
+
+        if(map[100 * y + x] == 1) {
+          cell.style.backgroundColor = "black";
+        }
+
+        cell.addEventListener('mousemove', () => {
+          if(mousedown) {
+            if(clear) {
+              cell.style.backgroundColor = "";
+              map[100 * y + x] = 0;
+            } else {
+              cell.style.backgroundColor = 'black';
+              map[100 * y + x] = 1;
+            }
+          }
+        })
+
+        container.appendChild(cell);
+      }
+    }
+
+    let mousedown = false;
+    let clear = false;
+    document.addEventListener('mousedown', e => {
+      mousedown = true;
+      clear = (e.which === 3);
+    });
+    document.addEventListener('mouseup', () => mousedown = false);
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    function sleep(t) {
+      return new Promise((resolve, reject) => {
+        setTimeout(resolve, t);
+      })
+    }
+
+    async function path(map, start, end) {
+      var queue = [start]; // 把点加入到集合里（queue是一种数据结构，先进先出）
+
+      // 在 js 里，push 如果跟 shift 相对，就是一个队列，pop 跟 unshift 也是队列，
+      // push 跟 pop 作为一组就是栈，shift 跟 unshift 也是栈
+      // 但是一般不用 shift 和 unshift 做栈，因为考虑到 js 数组的实现，这样做可能性能会变低
+      
+      async function insert(x, y) { // 入队的逻辑
+        if(x < 0 || x >= 100 || y < 0 || y >= 100) { // 遇到边
+          return;
+        }
+        if(map[y * 100 + x]) {  // 遇到墙
+          return;
+        }
+        await sleep(30);
+        container.children[y * 100 + x].style = 'background-color: green;';
+        map[y * 100 + x] = 2; // 已经找过的点，不想让它重复去找，就设置一个特殊的值 2
+        queue.push([x, y]);
+      }
+
+      while(queue.length) {
+        let [x, y] = queue.shift();
+
+        console.log(x, y);
+        if(x === end[0] && y === end[1]) { // 找到了就结束
+          return true;
+        }
+        await insert(x - 1, y);
+        await insert(x, y - 1);
+        await insert(x + 1, y);
+        await insert(x, y + 1);
+      }
+      return false;
+    }
+
+    path(map, [0, 0], [50, 50]);
+
+  </script>
+  
+</body>
+</html>
