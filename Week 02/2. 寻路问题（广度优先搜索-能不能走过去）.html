@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>地图编辑器</title>
+  <title>寻路问题（广度优先搜索-能不能走过去）</title>
   <style>
     #container {
       font-size: 0;
@@ -64,24 +64,28 @@
     document.addEventListener('contextmenu', e => e.preventDefault());
 
     function path(map, start, end) {
-      var queue = [start];
+      var queue = [start]; // 把点加入到集合里（queue是一种数据结构，先进先出）
 
+      // 在 js 里，push 如果跟 shift 相对，就是一个队列，pop 跟 unshift 也是队列，
+      // push 跟 pop 作为一组就是栈，shift 跟 unshift 也是栈
+      // 但是一般不用 shift 和 unshift 做栈，因为考虑到 js 数组的实现，这样做可能性能会变低
+      
       function insert(x, y) { // 入队的逻辑
-        if(x < 0 || x >= 100 || y < 0 || y >= 100) {
+        if(x < 0 || x >= 100 || y < 0 || y >= 100) { // 遇到边
           return;
         }
-        if(map[y * 100 + x]) {
+        if(map[y * 100 + x]) {  // 遇到墙
           return;
         }
-        map[y * 100 + x] = 2;
-        queue.push(x, y);
+        map[y * 100 + x] = 2; // 已经找过的点，不想让它重复去找，就设置一个特殊的值 2
+        queue.push([x, y]);
       }
 
       while(queue.length) {
-        let a = queue.shift();
-        let [x, y] = a;
+        let [x, y] = queue.shift();
+
         console.log(x, y);
-        if(x === end[0] && y === end[1]) { // 找到了
+        if(x === end[0] && y === end[1]) { // 找到了就结束
           return true;
         }
         insert(x - 1, y);
@@ -92,9 +96,7 @@
       return false;
     }
 
-    
-
-
+    path(map, [0, 0], [5, 5]);
 
   </script>
   
