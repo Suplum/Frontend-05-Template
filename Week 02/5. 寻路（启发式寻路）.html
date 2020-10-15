@@ -28,6 +28,41 @@
   <button onclick="localStorage['map'] = JSON.stringify(map)">save</button>
 
   <script>
+    class Sorted {
+      constructor(data, compare) {
+        this.data = data.slice();
+        this.compare = compare || ((a, b) => a - b);
+      }
+
+      take() { //
+        if(!this.data.length) {
+          return;
+        }
+        let min = this.data[0];
+        let minIndex = 0;
+
+        for(let i = 1; i < this.data.length; i++) {
+          if(this.compare(this.data[i], min) < 0) {
+            min = this.data[i];
+            minIndex = i;
+          }
+        }
+
+        this.data[minIndex] = this.data[this.data.length - 1];
+        this.data.pop();
+        return min;
+      }
+
+      give(v) { // 往里加元素
+        this.data.push(v);
+      }
+    }
+
+    // let s = new Sorted([7,3,9,6,5,4,8,0,2]);
+    // s.take()
+    // [7,3,9,6,5,4,8,0,2].sort()
+
+
     let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0); // 设计数据结构保存地图
 
     let container = document.getElementById('container');
@@ -121,7 +156,7 @@
       return null; // 从 false 改成 null
     }
 
-    findPath(map, [0, 0], [50, 50]);
+    // findPath(map, [0, 0], [50, 50]);
 
   </script>
   
