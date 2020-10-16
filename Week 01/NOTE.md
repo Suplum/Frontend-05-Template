@@ -12,7 +12,7 @@
               pattern[i][j] == 1 ? "♥️" : '';
    ```
 
-3. 如果 for 里不是用 let (因为 let 会创建一个词法的作用域)，如果用的是 var，就不能直接这样用，就需要在 addEventListener 外面加一个IFE（问：IFE 是啥？）
+3. 如果 for 里不是用 let (因为 let 会创建一个词法的作用域)，如果用的是 var，就不能直接这样用，就需要在 addEventListener 外面加一个iife（问：iife 是啥？答：立即调用函数，也叫自执行函数）
     ```
       for(let i = 0; i < 3; i++) {
         for(let j = 0; j < 3; j++) {
