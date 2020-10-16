@@ -108,7 +108,7 @@
     }
 
     async function findPath(map, start, end) {
-      let table = Object.create(end);
+      let table = Object.create(map);
       let queue = new Sorted([start], (a, b) => distance(a) - distance(b)); // 把点加入到集合里（queue是一种数据结构，先进先出）
 
       // 在 js 里，push 如果跟 shift 相对，就是一个队列，pop 跟 unshift 也是队列，
@@ -132,7 +132,7 @@
         return (point[0] - end[0]) ** 2 + (point[1] - end[1]) ** 2; // ** 是乘方运算符
       }
 
-      while(queue.length) {
+      while(queue.data.length) {
         let [x, y] = queue.take();
 
         console.log(x, y);
@@ -140,7 +140,7 @@
           let path = [];
 
           while(x != start[0] || y != start[1]) {
-            path.give(map[y * 100 + x]);
+            path.push(map[y * 100 + x]);
             [x, y] = table[y * 100 + x];
             container.children[y * 100 + x].style = 'background-color: purple';
           }
