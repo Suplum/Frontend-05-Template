@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LL 词法分析</title>
+  <title>正则表达式</title>
 </head>
 <body>
-  
+
   <script>
-    var regexp = /([0-9\.]+)|([ \t]+)|([\r\n/]+)|(\*)|(\/)|(\+)|(\-)/g;
+    // 括号代表捕获
+    var regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
     var dictionary = ['Number', 'Whitespace', 'LineTerminator', '*', '/', '+', '-'];
 
     function tokenize(source) {
@@ -29,7 +30,7 @@
     }
 
     tokenize('1024 + 10 * 25');
-    
+
   </script>
 </body>
 </html>

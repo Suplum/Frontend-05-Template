@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LL 词法分析</title>
+</head>
+<body>
+
+  <script>
+    // 括号代表捕获
+    var regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
+    var dictionary = ['Number', 'Whitespace', 'LineTerminator', '*', '/', '+', '-'];
+
+    function* tokenize(source) {
+      var result = null;
+      var lastIndex = 0;
+      do {
+        lastIndex = regexp.lastIndex;
+        result = regexp.exec(source);
+
+        if(!result) break;
+
+        // 用token存起来
+        let token = {
+          type: null,
+          value: null
+        }
+
+        for(var i = 1; i <= dictionary.length; i++) {
+          if(result[i]) {
+            token.type = dictionary[i - 1];
+          }
+        }
+
+        token.value = result[0];
+        yield token;
+      } while(result);
+
+      yield { type: 'EOF'};
+    }
+
+    let source = [];
+
+    for(let token of tokenize('10 * 25')) {
+      if(token.type !== 'Whitespace' && token.type !== 'LineTerminator') {
+        source.push(token);
+      }
+    }
+
+    function Expression(tokens) {
+
+    }
+
+    function AdditiveExpression(source) {
+
+    }
+
+    // 乘法
+    function MultiplicativeExpression(source) {
+      console.log(source);
+    }
+
+    MultiplicativeExpression('10 * 25');
+
+
+  </script>
+</body>
+</html>

@@ -15,12 +15,12 @@
     ```
     <Expression>::=
       <AdditiveExpression><EOF>
-    
+
     <AdditiveExpression>::=
       <MultiplicativeExpression>
       <AdditiveExpression><+><MultiplicativeExpression>
       <AdditiveExpression><-><MultiplicativeExpression>
-    
+
     <MultiplicativeExpression>::=
       <Number>
       <MultiplicativeExpression><*><Number>
@@ -33,7 +33,7 @@
 12. 蓝绿背景的（包括```<EOF>、<+>、<->、<Number>、<*>、</>```）是我们定义里面的终结符，就是TerminalSymbol，就是直接从词法里面扫描出来的，白色的没有标出来的部分就是 NoneTerminalSymbol 非终结符，非终结符就是我们拿终结符的组合定义出来的，我们看到我们定义乘法表达式的非终结符，可以是一个单独的Number，也可以是它自身加上一个乘号然后再加上一个Number，也可以是除号加上一个Number
 13. 加法的结构类似，只是基本单元换成了一个非终结符 MultiplicativeExpression，就是数个乘法用加号或者减号连接在一起，就是加法的结构
 14. EOF 不是真实可见的字符，但我们的结构需要一个结束的符号，End of file
-15. 
+15.
     ```
     <AdditiveExpression>::=
       <MultiplicativeExpression> // （需要展开）
@@ -49,3 +49,6 @@
       <AdditiveExpression><-><MultiplicativeExpression>
     ```
 16. 正则表达式里圆括号表示捕获
+17. lastIndex 长度进行比较
+18. js的新特性，当我们要返回一个序列的时候，就用yield
+19. 要把这个函数改成一个generator函数（function后加*）
