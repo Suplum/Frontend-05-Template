@@ -12,7 +12,7 @@
     - Whitespace：```<SP>```
     - LineTerminator：```<LF><CR>```
 7. 四则运算语法的定义：
-    ```
+    ```xml
     <Expression>::=
       <AdditiveExpression><EOF>
 
@@ -33,13 +33,13 @@
 12. 蓝绿背景的（包括```<EOF>、<+>、<->、<Number>、<*>、</>```）是我们定义里面的终结符，就是```TerminalSymbol```，就是直接从词法里面扫描出来的，白色的没有标出来的部分就是 ```NoneTerminalSymbol``` 非终结符，非终结符就是我们拿终结符的组合定义出来的，我们看到我们定义乘法表达式的非终结符，可以是一个单独的```Number```，也可以是它自身加上一个乘号然后再加上一个```Number```，也可以是除号加上一个```Number```
 13. 加法的结构类似，只是基本单元换成了一个非终结符```MultiplicativeExpression```，就是数个乘法用加号或者减号连接在一起，就是加法的结构
 14. ```EOF```不是真实可见的字符，但我们的结构需要一个结束的符号，End of file
-15. ```
+15. ```xml
     <AdditiveExpression>::=
       <MultiplicativeExpression> // （需要展开）
       <AdditiveExpression><+><MultiplicativeExpression>
       <AdditiveExpression><-><MultiplicativeExpression>
     ```
-    ```
+    ```xml
     <AdditiveExpression>::=
       <Number>
       <MultiplicativeExpression><*><Number>
