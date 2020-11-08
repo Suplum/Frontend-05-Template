@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    let callbacks = [];
+    // 这个object，如果我们去访问它的a属性和访问b属性，其实是写死的过程，无法在中间加任何监听的代码
+    // 其实它就是一个不可observe的对象
+    let object = {
+      a: 1,
+      b: 2
+    }
+
+    let po = reactive(object);
+
+    effect(() => {
+      console.log(po.a);
+    })
+
+    function effect(callback) {
+      callbacks.push(callback);
+    }
+
+    function reactive(object) {
+      return new Proxy(object, {
+        set(obj, prop, val) {
+          obj[prop] = val;
+          for(let callback of callbacks) {
+            callback();
+          }
+          return obj[prop];
+        },
+        get(obj, prop) {
+          console.log(obj, prop);
+          return obj[prop];
+        }
+      })
+    }
+
+  </script>
+</body>
+</html>
