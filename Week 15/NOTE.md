@@ -1,1 +1,4 @@
-学习笔记
+- 常见的三种方案
+  - setInterval(不推荐，比较不可控)
+  - setTimeout
+  - requestAnimationFrame
