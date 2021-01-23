@@ -2,3 +2,5 @@
   - setInterval(不推荐，比较不可控)
   - setTimeout
   - requestAnimationFrame
+- 我们在识别上，会允许一个较低的误差，我们会用10px，来作为误差的容错范围，这个10px，一般是特指我们在Retina屏上的一个10px，如果是用一倍屏的话，要改成5px，如果是三倍屏，就是15px。然后这个10px，我们就认为这里有一个事件，我们就会认为这个事件变成了pan，pan是一个摄影里面的术语，表示的是移动摄像机的意思，这里我们表示比较缓慢的触点的推移的操作。然后移动10px会触发pan start，在之后，每一次move都会触发一个pan的事件，然后这里面存在一个分支，如果我们在end的时候达到了一定的速度，那么我们就会认为它是一次清扫的事件，这个叫flick（swipe）
+- `event.changedTouches`当我们去触发touchstart的时候，他这个地方就有start的touch的点，但是到move的时候。我们没有办法知道是哪个点在move，所以说它需要一个唯一的标识符去追踪他，所以说`touchstart`、`touchmove`、`touchend`它们各有一个标识符`identifier`
