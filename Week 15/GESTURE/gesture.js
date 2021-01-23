@@ -41,14 +41,14 @@ element.addEventListener("mousedown", event => {
     contexts.delete("mouse" + (1 << event.button))
 
     if(event.buttons === 0) {
-      element.removeEventListener("mousemove", mousemove);
-      element.removeEventListener("mouseup", mouseup);
+      document.removeEventListener("mousemove", mousemove);
+      document.removeEventListener("mouseup", mouseup);
       isListeningMouse = false;
     }
   }
   if(!isListeningMouse) {
-    element.addEventListener("mousemove", mousemove);
-    element.addEventListener("mouseup", mouseup);
+    document.addEventListener("mousemove", mousemove);
+    document.addEventListener("mouseup", mouseup);
     isListeningMouse = true;
   }
 })
@@ -137,6 +137,7 @@ let move = (point, context) => {
 let end = (point, context) => {
   if(context.isTap) {
     console.log("tapend")
+    dispatch("tap", {})
     clearTimeout(context.handler);
   }
   if(context.isPan) {
@@ -151,4 +152,14 @@ let end = (point, context) => {
 let cancel = (point, context) => {
   console.log("cancel", point.clientX, point.clientY)
   clearTimeout(context.handler);
+}
+
+// 派发事件
+function dispatch(type, properties) {
+  let event = new Event(type);
+  for(let name in properties) {
+    event[name] = properties[name];
+  }
+  // console.log(event);
+  element.dispatchEvent(event);
 }
