@@ -10,7 +10,7 @@ export class Dispatcher {
       event[name] = properties[name];
     }
     // console.log(event);
-    element.dispatchEvent(event);
+    this.element.dispatchEvent(event);
   }
 }
 
