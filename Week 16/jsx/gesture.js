@@ -14,6 +14,8 @@ export class Dispatcher {
   }
 }
 
+
+
 // listen -> recognize -> dispatch
 // new Listener(new Recognizer(dispatch))
 
@@ -122,12 +124,6 @@ export class Recognizer {
   start(point, context) {
     // console.log("start", point.clientX, point.clientY)
     context.startX = point.clientX, context.startY = point.clientY;
-
-    this.dispatcher.dispatch("start", {
-      clientX: point.clientX,
-      clientY: point.clientY,
-    });
-
     context.points = [{
       t: Date.now(),
       x: point.clientX,
@@ -234,20 +230,9 @@ export class Recognizer {
         clientX: point.clientX,
         clientY: point.clientY,
         isVertical: context.isVertical,
-        isFlick: context.isFlick,
-        velocity: v
+        isFlick: context.isFlick
       })
     }
-
-    this.dispatcher.dispatch("end", {
-      startX: context.startX,
-      startY: context.startY,
-      clientX: point.clientX,
-      clientY: point.clientY,
-      isVertical: context.isVertical,
-      isFlick: context.isFlick,
-      velocity: v
-    })
     
     // console.log(v)
     // console.log("end", point.clientX, point.clientY)

@@ -20,4 +20,4 @@ a.mountTo(document.body);
 // window.animation = new Animation({set a(v){console.log(v)}}, "a", 0, 100, 1000, null);
 // // tl.add(new Animation({ set a(v) {console.log('v', v)}}, "a", 0, 100, 1000, null));
 
-tl.start();
+// tl.start();
